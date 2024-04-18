@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  node:
+    image: node:20.12.2-alpine
+    container_name: "server-test-delivery"
+    stdin_open: true
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint:
+      - ash
+    command:
+      - -c
+      - npm install && npm start
+    ports:
+      - ${DOCKER_PORT}:${PORT}
+      - ${DOCKER_SSL_PORT}:${SSL_PORT}
+networks:
+  default:
+    name: ${DOCKER_NETWORKS_NAME}
